@@ -1,5 +1,5 @@
 .Header {
-    background-color: #7A11FA;
+    border-right: 1px solid #A15555;
     display: flex;
     flex-direction: column;
     width: 250px;
@@ -15,7 +15,7 @@
 }
 
 .Header a:visited, .Header a:hover {
-    color: white;
+    color: #A15555;
     text-decoration: none;
 }
 

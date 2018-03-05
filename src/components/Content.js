@@ -4,6 +4,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+//assets
+import './Content.css';
+
 class Content extends Component {
 
     static propTypes = {
@@ -14,7 +17,7 @@ class Content extends Component {
         const {body} = this.props;
 
         return (
-            <div>
+            <div className="Content">
                 {body}
             </div>
         );

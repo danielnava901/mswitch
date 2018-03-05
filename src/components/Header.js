@@ -19,7 +19,7 @@ class Header extends Component {
 
         return (
             <header className="Header">
-                <div className="Header-logo">Logo</div>
+                <div className="Header-logo"><Link to="/">Logo</Link></div>
                 {links.map(link => {return <Link to={link.url} key={link.id}>{link.name}</Link>})}
             </header>
         );
