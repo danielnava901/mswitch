@@ -2,6 +2,7 @@
  * Created by daniel on 3/03/18.
  */
 import React, { Component } from 'react';
+import PosterContent from '../../components/PosterContent/PosterContent';
 
 import {discover} from '../../services/MovieApi';
 
@@ -17,17 +18,18 @@ class Movies extends Component {
 
     componentWillMount() {
         discover().then(function(data) {
-            this.setState({movies: data});
+            this.setState({movies: data.data.results});
         }.bind(this));
 
     }
 
     render() {
         const movies = this.state.movies;
-        console.log("movies", movies);
+        console.log(movies);
         return (
             <div>
                 <h1>Peliculas</h1>
+                <PosterContent movies={movies}/>
             </div>
         );
     }
