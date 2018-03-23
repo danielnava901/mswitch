@@ -2,6 +2,7 @@
  * Created by daniel on 16/03/18.
  */
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 
 class Poster extends Component {
     constructor(props) {
@@ -19,8 +20,9 @@ class Poster extends Component {
 
 
         return(
-            <div key={movie.id} onClick={e => this.onClick(movie.id)}>
+            <div key={movie.id}>
                 <strong>{movie.title}</strong>
+                <Link to={`/movies/${movie.id}`} key={movie.id}>{movie.title}</Link>
             </div>
         );
     }

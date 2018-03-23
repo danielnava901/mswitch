@@ -8,6 +8,7 @@ import App from './pages/app/App';
 import Favorites from './pages/favorites/index';
 import Lists from './pages/lists/index';
 import Movies from './pages/movies/index';
+import Movie from './pages/movies/movie';
 import Dashboard from './pages/dashboard/index';
 import P404 from './pages/p404/index';
 
@@ -18,6 +19,7 @@ const AppRoutes = () => {
                 <Route exact path="/favorites" component={Favorites} />
                 <Route exact path="/lists" component={Lists} />
                 <Route exact path="/movies" component={Movies} />
+                <Route exact path="/movies/:id" component={Movie} />
                 <Route exact path="/" component={Dashboard} />
                 <Route component={P404} />
             </Switch>

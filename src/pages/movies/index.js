@@ -2,8 +2,9 @@
  * Created by daniel on 3/03/18.
  */
 import React, { Component } from 'react';
-import PosterContent from '../../components/PosterContent/PosterContent';
 
+
+import PosterContent from '../../components/PosterContent/PosterContent';
 import {discover} from '../../services/MovieApi';
 
 
@@ -25,7 +26,8 @@ class Movies extends Component {
 
     render() {
         const movies = this.state.movies;
-        console.log(movies);
+
+
         return (
             <div>
                 <h1>Peliculas</h1>

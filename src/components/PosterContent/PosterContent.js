@@ -4,7 +4,6 @@
 import React, { Component } from 'react';
 import Poster from '../Poster/Poster';
 
-
 class PosterContent extends Component {
 
     constructor(props) {
@@ -17,7 +16,7 @@ class PosterContent extends Component {
 
         return (
             <div>
-                {movies.map((movie, i) => <Poster key={i} movie={movie}/>)}
+                {movies.map((movie, i) => <Poster key={i} movie={movie} />)}
             </div>
         )
     }
