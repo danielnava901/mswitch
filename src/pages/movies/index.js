@@ -18,15 +18,17 @@ class Movies extends Component {
     }
 
     componentWillMount() {
-        discover().then(function(data) {
+        discover()
+            .then(function(data) {
+            
             this.setState({movies: data.data.results});
-        }.bind(this));
+        }.bind(this)
+                );
 
     }
 
     render() {
         const movies = this.state.movies;
-
 
         return (
             <div>

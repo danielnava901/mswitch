@@ -13,19 +13,7 @@ class App extends Component {
 
     render() {
         const {children} = this.props;
-        const links = [
-            {
-                id: 1,
-                name: "Peliculas",
-                url: "/movies"
-            },
-            {
-                id: 2,
-                name: "Favoritos",
-                url: "/favorites"
-            }
-        ];
-
+        const {links} = this.props;
 
         return (
             <div className="App">

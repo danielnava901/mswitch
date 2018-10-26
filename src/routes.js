@@ -13,8 +13,21 @@ import Dashboard from './pages/dashboard/index';
 import P404 from './pages/p404/index';
 
 const AppRoutes = () => {
+    const links = [
+        {
+            id: 1,
+            name: "Peliculas",
+            url: "/movies"
+        },
+        {
+            id: 2,
+            name: "Favoritos",
+            url: "/favorites"
+        }
+    ];
+
     return (
-        <App>
+        <App links={links}>
             <Switch>
                 <Route exact path="/favorites" component={Favorites} />
                 <Route exact path="/lists" component={Lists} />

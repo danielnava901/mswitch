@@ -18,7 +18,7 @@ class Poster extends Component {
     render() {
         const movie = this.props.movie;
 
-
+        
         return(
             <div key={movie.id}>
                 <strong>{movie.title}</strong>
