@@ -1,0 +1,19 @@
+.User-card {
+    display: flex;
+
+}
+
+.User-card .foto {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.User-card .foto-src {
+    width: 120px;
+}
+
+.User-card .info {
+    flex-grow: 2;
+}

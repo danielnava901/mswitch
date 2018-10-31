@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 
 import PosterContent from '../../components/PosterContent/PosterContent';
 import {discover} from '../../services/MovieApi';
-
+import Poster from '../../components/Poster/Poster';
 
 class Movies extends Component {
 
@@ -20,7 +20,6 @@ class Movies extends Component {
     componentWillMount() {
         discover()
             .then(function(data) {
-            
             this.setState({movies: data.data.results});
         }.bind(this)
                 );
@@ -33,7 +32,10 @@ class Movies extends Component {
         return (
             <div>
                 <h1>Peliculas</h1>
-                <PosterContent movies={movies}/>
+                <PosterContent>
+                    {movies.map((movie, i) => <Poster key={i} movie={movie} />)}
+                </PosterContent>
+
             </div>
         );
     }

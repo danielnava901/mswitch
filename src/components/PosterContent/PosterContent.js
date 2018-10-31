@@ -2,7 +2,7 @@
  * Created by daniel on 16/03/18.
  */
 import React, { Component } from 'react';
-import Poster from '../Poster/Poster';
+
 
 class PosterContent extends Component {
 
@@ -16,7 +16,7 @@ class PosterContent extends Component {
 
         return (
             <div>
-                {movies.map((movie, i) => <Poster key={i} movie={movie} />)}
+                {this.props.children}
             </div>
         )
     }

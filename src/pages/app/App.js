@@ -17,8 +17,10 @@ class App extends Component {
 
         return (
             <div className="App">
-                <Header links={links}/>
-                <Content body={children}/>
+                <div className="App-wrapper">
+                    <Header links={links}/>
+                    <Content body={children}/>
+                </div>
             </div>
             );
     }
