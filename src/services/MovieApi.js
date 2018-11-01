@@ -26,9 +26,6 @@ const search = (query) => {
 
 const searchById = (mdb_id) => {
     const MDB_SEARCH_BY_ID = `https://api.themoviedb.org/3/movie/${mdb_id}?api_key=${MDB_API_KEY}&language=es-Es`;
-
-    console.log("datos", MDB_SEARCH_BY_ID);
-
     return axios.get(MDB_SEARCH_BY_ID, {});
 };
 

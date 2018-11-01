@@ -20,7 +20,6 @@ class Poster extends Component {
 
     render() {
         const movie = this.props.movie;
-        console.log("MOVIE", movie);
         return(
             <div key={movie.id} className="Poster">
                 <Link to={`/movies/${movie.id}`} key={movie.id}>
