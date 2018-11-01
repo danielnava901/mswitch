@@ -19,11 +19,10 @@ class Movies extends Component {
 
     componentWillMount() {
         discover()
-            .then(function(data) {
-            this.setState({movies: data.data.results});
-        }.bind(this)
-                );
-
+        .then(function(data) {
+                this.setState({movies: data.data.results});
+            }.bind(this)
+        );
     }
 
     render() {

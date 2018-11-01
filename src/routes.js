@@ -8,7 +8,7 @@ import App from './pages/app/App';
 import Favorites from './pages/favorites/index';
 import Lists from './pages/lists/index';
 import Movies from './pages/movies/index';
-import Movie from './pages/movies/movie';
+import Movie from './pages/movie/index';
 import Dashboard from './pages/dashboard/index';
 import P404 from './pages/p404/index';
 import User from './pages/user/index';

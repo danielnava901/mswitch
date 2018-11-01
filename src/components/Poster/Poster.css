@@ -1,0 +1,13 @@
+.Poster {
+    margin: 10px 10px 10px 0;
+}
+
+.Poster:first-child {
+
+}
+
+.Poster-img {
+    height: 247px;
+    width: 170px;
+}
+

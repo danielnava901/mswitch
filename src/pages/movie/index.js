@@ -18,17 +18,15 @@ class Movie extends Component {
 
     componentWillMount() {
         searchById(this.state.mdb_id)
-        .then(function(data){
-            console.log(data);
-            this.setState({
-                info: data.data
-            });
-        }.bind(this));
+            .then(function(data){
+                console.log(data);
+                this.setState({
+                    info: data.data
+                });
+            }.bind(this));
     }
 
     render() {
-
-
         return(
             <div>
                 <h3>{this.state.info.title}</h3>

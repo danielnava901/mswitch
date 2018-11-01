@@ -2,6 +2,7 @@
  * Created by daniel on 16/03/18.
  */
 import React, { Component } from 'react';
+import './PosterContent.css';
 
 
 class PosterContent extends Component {
@@ -15,7 +16,7 @@ class PosterContent extends Component {
         const movies = this.props.movies;
 
         return (
-            <div>
+            <div className="Poster-content">
                 {this.props.children}
             </div>
         )
