@@ -1,3 +1,53 @@
+.Movie-info {
+    display: flex;
+}
+
+.info-poster {
+    flex-grow: 1;
+}
+
 .info-poster-img {
     border-radius: 5px;
+}
+
+.info-data {
+    flex-grow: 2;
+    padding: 10px 20px;
+}
+
+.info-data-title {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.info-genres {
+    display: flex;
+
+}
+
+.info-genres div {
+    margin-right: 10px;
+    border: 1px solid #919191;
+    border-radius: 4px;
+    padding: 3px;
+}
+
+.info-overview {
+    margin-top: 20px;
+    text-align: justify;
+}
+
+.info-scores {
+    margin-bottom: 20px;
+}
+
+.info-data-vote-average {
+    background-color: #919191;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

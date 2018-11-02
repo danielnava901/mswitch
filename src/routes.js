@@ -12,6 +12,8 @@ import Movie from './pages/movie/index';
 import Dashboard from './pages/dashboard/index';
 import P404 from './pages/p404/index';
 import User from './pages/user/index';
+import Login from './pages/login/index';
+import Register from './pages/register/index';
 
 const AppRoutes = () => {
     const links = [
@@ -41,6 +43,8 @@ const AppRoutes = () => {
             <Route exact path="/movies" component={Movies} />
             <Route exact path="/movies/:id" component={Movie} />
             <Route exact path="/user" component={User} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
             <Route exact path="/" component={Dashboard} />
             <Route component={P404} />
         </Switch>

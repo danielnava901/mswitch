@@ -16,7 +16,9 @@ class Movie extends Component {
         this.state = {
             info: {
                 data: {
-                    poster_path: ""
+                    poster_path: "",
+                    genres: [],
+                    overview: ""
                 }
             },
             mdb_id: mdb_id
@@ -34,9 +36,8 @@ class Movie extends Component {
     }
 
     render() {
-        console.log("aaaw");
-
         let posterPath = this.state.info.data.poster_path;
+        console.log(this.state.info.data.genres);
         return(
             <div className="Movie">
                 <div className="Movie-info">
@@ -44,7 +45,26 @@ class Movie extends Component {
                         <img src={`${URL}/${posterPath}`} alt="" className="info-poster-img"/>
                     </div>
                     <div className="info-data">
-
+                        <div className="info-data-title">
+                            <strong style={{fontSize: "24px"}}>{this.state.info.data.title}</strong>
+                            <span style={{fontSize: "15px"}}>{this.state.info.data.original_title}</span>
+                            <small>{this.state.info.data.release_date}</small>
+                        </div>
+                        <div className="info-scores">
+                            <div className="info-data-vote-average">
+                                {this.state.info.data.vote_average}
+                            </div>
+                        </div>
+                        <div className="info-genres">
+                            {
+                                this.state.info.data.genres.map(item => <div key={item.id}>{item.name}</div>)
+                            }
+                        </div>
+                        <div className="info-overview">
+                            {
+                                this.state.info.data.overview
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

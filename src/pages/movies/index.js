@@ -34,7 +34,6 @@ class Movies extends Component {
                 <PosterContent>
                     {movies.map((movie, i) => <Poster key={i} movie={movie} />)}
                 </PosterContent>
-
             </div>
         );
     }
