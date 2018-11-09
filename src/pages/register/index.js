@@ -19,32 +19,28 @@ class Register extends Component {
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onChangeName = this.onChangeName.bind(this);
+
     }
 
-
     onChangeUsername(e) {
-        console.log(e.target.value);
         this.setState({
             username: e.target.value
         })
     }
 
     onChangeName(e) {
-        console.log(e.target.value);
         this.setState({
             name: e.target.value
         })
     }
 
     onChangeEmail(e) {
-        console.log(e.target.value);
         this.setState({
             email: e.target.value
         })
     }
 
     onChangePassword(e) {
-        console.log(e.target.value);
         this.setState({
             password: e.target.value
         })
@@ -60,6 +56,7 @@ class Register extends Component {
 
         axios.post("http://localhost:8000/api/register", form)
         .then(function(response) {
+            console.log("AXIOS response");
             console.log(response);
         });
     }

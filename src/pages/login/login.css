@@ -1,0 +1,15 @@
+.Login {
+    display: flex;
+    justify-content: center;
+}
+
+.Login-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.Login-form input, button {
+    margin: 10px;
+    height: 25px;
+}
