@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {Redirect} from 'react-router-dom';
+
 import axios from "axios";
 import './login.css';
 
@@ -8,8 +10,11 @@ class Login extends Component {
 
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            isAuthenticated: false
         };
+
+        this.props = props;
 
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -50,14 +55,24 @@ class Login extends Component {
 
         axios.post("http://localhost:8000/api/login_check", form)
             .then(function(response) {
-                console.log(response);
-                sessionStorage.setItem('token', response.data.token)
-            });
+                sessionStorage.setItem('token', response.data.token);
+
+                if(response.data.token) {
+                    this.props.auth.authenticate(() => {
+                        this.setState({
+                            isAuthenticated: true
+                        })
+                    });
+
+
+                }
+
+            }.bind(this));
     }
 
 
     render() {
-        return (
+        return this.state.isAuthenticated ? <Redirect to="/movies"/> :(
             <div>
                 <div className="Login">
                     <div className="Login-form">
