@@ -54,6 +54,9 @@ class Movie extends Component {
                             <div className="info-data-vote-average">
                                 {this.state.info.data.vote_average}
                             </div>
+                            <div>
+                                cali
+                            </div>
                         </div>
                         <div className="info-genres">
                             {

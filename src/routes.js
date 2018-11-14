@@ -114,24 +114,21 @@ const AppRoutes = () => {
     ];
 
 
-    let v = 1;
-    let intro = v===1 ? <App links={links}>
-        <Switch>
-            <PrivateRoute exact path="/favorites" component={Favorites} />
-            <PrivateRoute exact path="/lists" component={Lists} />
-            <PrivateRoute exact path="/movies" component={Movies}/>
-            <PrivateRoute exact path="/movies/:id" component={Movie} />
-            <PrivateRoute exact path="/user" component={User} />
-            <AuthRoute exact path="/login" component={Login} auth={Auth}/>
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/logout" component={Logout} />
-            <Route exact path="/" component={Dashboard} />
-            <Route component={P404} />
-        </Switch>
-    </App> : <div>H</div>;
-
     return (
-        intro
+        <App links={links}>
+            <Switch>
+                <PrivateRoute exact path="/favorites" component={Favorites} />
+                <PrivateRoute exact path="/lists" component={Lists} />
+                <PrivateRoute exact path="/movies" component={Movies}/>
+                <PrivateRoute exact path="/movies/:id" component={Movie} />
+                <PrivateRoute exact path="/user" component={User} />
+                <AuthRoute exact path="/login" component={Login} auth={Auth}/>
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/logout" component={Logout} />
+                <Route exact path="/" component={Dashboard} />
+                <Route component={P404} />
+            </Switch>
+        </App>
     );
 };
 
