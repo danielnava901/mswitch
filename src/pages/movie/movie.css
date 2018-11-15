@@ -38,10 +38,25 @@
     text-align: justify;
 }
 
-.info-scores {
+.info-scores-section {
     margin-bottom: 20px;
     display: flex;
     align-items: center;
+}
+
+.info-scores {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 20px;
+}
+.info-scores img{
+    cursor: pointer;
+}
+
+.grayscale {
+    filter: grayscale(100%);
 }
 
 .info-data-vote-average {
