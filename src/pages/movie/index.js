@@ -44,8 +44,9 @@ class Score extends Component {
     render() {
         console.log(`/images/emojis/${this.props.icon}.png`);
         return (
-            <div data-value={this.props.value} onClick={this.onClickScore} data-selected={this.props.isSelected}>
+            <div className="Score-div" data-value={this.props.value} onClick={this.onClickScore} data-selected={this.props.isSelected}>
                 <img src={`/images/emojis/${this.props.icon}`} className={this.props.isSelected ? "" : "grayscale"} alt={this.props.name}/>
+                <span className="Score-div-porcent">{this.props.porcent ? this.props.porcent : '0%'}</span>
             </div>
         );
     }
@@ -157,7 +158,7 @@ class Movie extends Component {
                                     this.state.scores.map((score, index) =>{
                                         let isSelected = false;
 
-                                        if(score.id === this.state.score) {
+                                        if(Number(score.id) === Number(this.state.score)) {
                                             isSelected = true;
                                         }
 
@@ -169,6 +170,7 @@ class Movie extends Component {
                                                        icon={score.icon}
                                                        isSelected={isSelected}
                                                        mdb={this.state.info.data}
+                                                       porcent={score.porcent}
                                                         onUpdate={this.onUpdateScore}/>
                                     })
                                 }

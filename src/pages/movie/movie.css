@@ -68,3 +68,15 @@
     align-items: center;
     justify-content: center;
 }
+
+.Score-div {
+    display: flex;
+    flex-direction: column;
+    width: 32px;
+    align-items: center;
+    justify-content: center;
+}
+
+.Score-div-porcent {
+    font-size: 14px;
+}
