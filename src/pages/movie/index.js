@@ -14,6 +14,24 @@ const tokenService = new TokenService();
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 
+function send(mdbId, data, cb) {
+    let formData = new FormData();
+
+    for(var key in data) {
+        formData.append(key, data[key]);
+    }
+
+
+    axios.post(`${apiRoutes.base}${apiRoutes.routes.getMovie}${mdbId}`, formData, {
+        headers: {
+            Authorization: `Bearer ${tokenService.getToken()}`
+        }
+    }).then(response => {
+        console.log(".---> ", response);
+        cb()
+    });
+}
+
 class Score extends Component {
     constructor(props) {
         super(props);
@@ -73,11 +91,13 @@ class Movie extends Component {
             },
             scores: [],
             score: -1,
-            mdb_id: mdb_id
+            mdb_id: mdb_id,
+            isFavorite: 0
         };
 
         this.getMovieForUser = this.getMovieForUser.bind(this);
         this.onUpdateScore = this.onUpdateScore.bind(this);
+        this.updateMovie = this.updateMovie.bind(this);
     }
 
     getMovieForUser() {
@@ -87,6 +107,16 @@ class Movie extends Component {
                 Authorization: `Bearer ${tokenService.getToken()}`
             }
         });
+    }
+
+    updateMovie() {
+        send(this.state.mdb_id, {
+            score: this.state.score,
+            mdb: this.state.data,
+            isFavorite: this.state.isFavorite
+        }, function() {
+            this.onUpdateScore()
+        }.bind(this));
     }
 
     onUpdateScore() {
@@ -105,6 +135,8 @@ class Movie extends Component {
             }
         }.bind(this));
     }
+
+
 
     componentWillMount() {
 
@@ -128,9 +160,6 @@ class Movie extends Component {
                     });
                 }
             }
-
-
-
         }.bind(this));
     }
 
@@ -150,31 +179,46 @@ class Movie extends Component {
                             <small>{this.state.info.data.release_date}</small>
                         </div>
                         <div className="info-scores-section">
-                            <div className="info-data-vote-average">
+                            <div className={`info-data-vote-average ` +
+                                (
+                                    this.state.info.data.vote_average < 5 ? ' red' :
+                                    (
+                                        this.state.info.data.vote_average < 6 ? ' yellow' :
+                                        (
+                                            this.state.info.data.vote_average < 7 ? ' blue' : ' green'
+                                        )
+                                    )
+                                )
+                            }>
                                 {this.state.info.data.vote_average}
                             </div>
-                            <div className="info-scores">
-                                {
-                                    this.state.scores.map((score, index) =>{
-                                        let isSelected = false;
-
-                                        if(Number(score.id) === Number(this.state.score)) {
-                                            isSelected = true;
-                                        }
-
-                                        console.log(index, isSelected);
-                                        return  <Score key={score.id}
-                                                       value={score.value}
-                                                       id={score.id}
-                                                       name={score.name}
-                                                       icon={score.icon}
-                                                       isSelected={isSelected}
-                                                       mdb={this.state.info.data}
-                                                       porcent={score.porcent}
-                                                        onUpdate={this.onUpdateScore}/>
-                                    })
-                                }
+                            <div className="fav">
+                                <img className="fav-icon" src={`/images/emojis/star.png`} alt="fav" title="Favorito"
+                                    onClick={this.updateMovie}
+                                />
                             </div>
+                        </div>
+                        <div className="info-scores">
+                            {
+                                this.state.scores.map((score, index) =>{
+                                    let isSelected = false;
+
+                                    if(Number(score.id) === Number(this.state.score)) {
+                                        isSelected = true;
+                                    }
+
+                                    console.log(index, isSelected);
+                                    return  <Score key={score.id}
+                                                   value={score.value}
+                                                   id={score.id}
+                                                   name={score.name}
+                                                   icon={score.icon}
+                                                   isSelected={isSelected}
+                                                   mdb={this.state.info.data}
+                                                   porcent={score.porcent}
+                                                   onUpdate={this.onUpdateScore}/>
+                                })
+                            }
                         </div>
                         <div className="info-genres">
                             {
