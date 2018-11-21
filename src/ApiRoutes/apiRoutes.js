@@ -5,7 +5,8 @@ const routes = {
     version: version,
     routes: {
         getMovies: "/api/"+version+"/movie",
-        getMovie: "/api/"+version+"/movie/"
+        getMovie: "/api/"+version+"/movie/",
+        getFavorites: "/api/"+version+"/favorites"
     }
 }
 ;

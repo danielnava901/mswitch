@@ -6,8 +6,7 @@ import axios from 'axios';
 import TokenService from '../../services/TokenService';
 import './movie.css'
 
-
-const URL = "https://image.tmdb.org/t/p/w342/";
+const IMG_URL = "https://image.tmdb.org/t/p/w342/";
 const tokenService = new TokenService();
 
 
@@ -27,7 +26,6 @@ function send(mdbId, data, cb) {
             Authorization: `Bearer ${tokenService.getToken()}`
         }
     }).then(response => {
-        console.log(".---> ", response);
         cb()
     });
 }
@@ -37,7 +35,7 @@ class Score extends Component {
         super(props);
         this.state = {
             mdb: props.mdb,
-
+            isFavorite: props.isFavorite
         };
 
         this.props = props;
@@ -48,19 +46,18 @@ class Score extends Component {
         let formData = new FormData();
         formData.append("score", this.props.id);
         formData.append("mdb", JSON.stringify(this.state.mdb));
+        formData.append("isFavorite", this.state.isFavorite);
 
         axios.post(`${apiRoutes.base}${apiRoutes.routes.getMovie}${this.state.mdb.id}`, formData, {
             headers: {
                 Authorization: `Bearer ${tokenService.getToken()}`
             }
         }).then(response => {
-            console.log(".---> ", response);
             this.props.onUpdate()
         });
     }
 
     render() {
-        console.log(`/images/emojis/${this.props.icon}.png`);
         return (
             <div className="Score-div" data-value={this.props.value} onClick={this.onClickScore} data-selected={this.props.isSelected}>
                 <img src={`/images/emojis/${this.props.icon}`} className={this.props.isSelected ? "" : "grayscale"} alt={this.props.name}/>
@@ -92,16 +89,17 @@ class Movie extends Component {
             scores: [],
             score: -1,
             mdb_id: mdb_id,
-            isFavorite: 0
+            isFavorite: 0,
         };
 
         this.getMovieForUser = this.getMovieForUser.bind(this);
         this.onUpdateScore = this.onUpdateScore.bind(this);
         this.updateMovie = this.updateMovie.bind(this);
+        this.onFavClick = this.onFavClick.bind(this);
     }
 
     getMovieForUser() {
-        console.log("getMovieForUser")
+        console.log("getMovieForUser");
         return axios.get(`${apiRoutes.base}${apiRoutes.routes.getMovie}${this.state.mdb_id}`, {
             headers: {
                 Authorization: `Bearer ${tokenService.getToken()}`
@@ -110,9 +108,10 @@ class Movie extends Component {
     }
 
     updateMovie() {
+        console.log("onUpdate", this.state.info);
         send(this.state.mdb_id, {
             score: this.state.score,
-            mdb: this.state.data,
+            mdb: JSON.stringify(this.state.info.data),
             isFavorite: this.state.isFavorite
         }, function() {
             this.onUpdateScore()
@@ -121,7 +120,7 @@ class Movie extends Component {
 
     onUpdateScore() {
         this.getMovieForUser().then(function(response) {
-            console.log("res", response);
+            console.log("onUpdate", response);
             if ("data" in response) {
                 this.setState({
                     scores: response.data.scores,
@@ -129,14 +128,22 @@ class Movie extends Component {
 
                 if ("data" in response.data) {
                     this.setState({
-                        score: response.data.data.score
+                        score: response.data.data.score,
+                        isFavorite: response.data.data.is_favorite
                     });
                 }
             }
         }.bind(this));
     }
 
-
+    onFavClick() {
+        console.log("isFav", this.state.isFavorite);
+        this.setState({
+            isFavorite: this.state.isFavorite ? 0 : 1
+        }, function() {
+            this.updateMovie();
+        }.bind(this));
+    }
 
     componentWillMount() {
 
@@ -145,32 +152,35 @@ class Movie extends Component {
                 this.setState({
                     info: data
                 });
+
+                console.log("onSearch", this.state.info);
+                this.getMovieForUser().then(function(response) {
+                    console.log("res", response);
+                    if("data" in response) {
+                        this.setState({
+                            scores: response.data.scores,
+                        });
+
+                        if("data" in response.data) {
+                            this.setState({
+                                score: response.data.data.score,
+                                isFavorite: response.data.data.is_favorite
+                            });
+                        }
+                    }
+                }.bind(this));
             }.bind(this));
-
-        this.getMovieForUser().then(function(response) {
-            console.log("res", response);
-            if("data" in response) {
-                this.setState({
-                    scores: response.data.scores,
-                });
-
-                if("data" in response.data) {
-                    this.setState({
-                        score: response.data.data.score
-                    });
-                }
-            }
-        }.bind(this));
     }
 
     render() {
         let posterPath = this.state.info.data.poster_path;
-
+        console.log("isFav...>", this.state.isFavorite);
+        let isFavorite = this.state.isFavorite;
         return(
             <div className="Movie">
                 <div className="Movie-info">
                     <div className="info-poster">
-                        <img src={`${URL}/${posterPath}`} alt="" className="info-poster-img"/>
+                        <img src={`${IMG_URL}/${posterPath}`} alt="" className="info-poster-img"/>
                     </div>
                     <div className="info-data">
                         <div className="info-data-title">
@@ -193,8 +203,9 @@ class Movie extends Component {
                                 {this.state.info.data.vote_average}
                             </div>
                             <div className="fav">
-                                <img className="fav-icon" src={`/images/emojis/star.png`} alt="fav" title="Favorito"
-                                    onClick={this.updateMovie}
+                                <img className={isFavorite ? "" : "grayscale"}
+                                     src={`/images/emojis/star.png`} alt="fav" title="Favorito"
+                                    onClick={this.onFavClick}
                                 />
                             </div>
                         </div>
@@ -207,7 +218,6 @@ class Movie extends Component {
                                         isSelected = true;
                                     }
 
-                                    console.log(index, isSelected);
                                     return  <Score key={score.id}
                                                    value={score.value}
                                                    id={score.id}
@@ -215,6 +225,7 @@ class Movie extends Component {
                                                    icon={score.icon}
                                                    isSelected={isSelected}
                                                    mdb={this.state.info.data}
+                                                   isFavorite={this.state.isFavorite}
                                                    porcent={score.porcent}
                                                    onUpdate={this.onUpdateScore}/>
                                 })
