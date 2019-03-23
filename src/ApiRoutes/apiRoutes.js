@@ -1,12 +1,14 @@
-
 const version = "v1";
 const routes = {
-    base: "http://localhost:8000",
+    base: "http://192.168.0.91:8000",
     version: version,
     routes: {
+        login: "/api/login_check",
+        register: "/api/register",
         getMovies: "/api/"+version+"/movie",
         getMovie: "/api/"+version+"/movie/",
-        getFavorites: "/api/"+version+"/favorites"
+        getFavorites: "/api/"+version+"/favorites",
+        getBestMovies: "/api/"+version+"/best-movies"
     }
 }
 ;

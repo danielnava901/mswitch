@@ -3,6 +3,7 @@ import {Redirect} from 'react-router-dom';
 
 import axios from "axios";
 import './login.css';
+import apiRoutes from "../../ApiRoutes/apiRoutes";
 
 class Login extends Component {
     constructor(props) {
@@ -53,7 +54,7 @@ class Login extends Component {
         form.append("_password", this.state.password);
 
 
-        axios.post("http://localhost:8000/api/login_check", form)
+        axios.post(`${apiRoutes.base}${apiRoutes.routes.login}`, form)
             .then(function(response) {
                 sessionStorage.setItem('token', response.data.token);
 

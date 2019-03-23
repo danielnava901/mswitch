@@ -15,7 +15,7 @@ function getFavorites() {
         headers: {
             Authorization: `Bearer ${tokenService.getToken()}`
         }
-    })
+    });
 }
 
 class Favorites extends Component {

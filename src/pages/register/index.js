@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './register.css'
 import axios from 'axios';
+import apiRoutes from "../../ApiRoutes/apiRoutes";
 
 
 
@@ -54,7 +55,7 @@ class Register extends Component {
         form.append("_password", this.state.password);
 
 
-        axios.post("http://localhost:8000/api/register", form)
+        axios.post(`${apiRoutes.base}${apiRoutes.routes.register}`, form)
         .then(function(response) {
             console.log("AXIOS response");
             console.log(response);

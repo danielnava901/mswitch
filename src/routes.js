@@ -54,7 +54,7 @@ const PrivateRoute = ({component: Component, ...rest}) => {
             {...rest}
             render={props =>{
                 return (Auth.isAuthenticated ?
-                        <Component {...props}/> :
+                        <Component {...props} auth={Auth.isAuthenticated}/> :
                         (
                             <Redirect to={{
                                 pathname: "/login",
@@ -79,7 +79,6 @@ const AuthRoute = ({component: Component, ...rest}) => {
             return <Component {...props}/>;
         }}
     />
-
 };
 
 const Logout = () => {
@@ -116,19 +115,24 @@ const AppRoutes = () => {
             visibility: "private",
         },
         {
+            id: 7,
+            name: "Registro",
+            url: "/register",
+            visibility: "public",
+        },
+        {
             id: 4,
             name: "Salir",
             url: "/logout",
             visibility: "private",
         },
         {
-            id: 5,
+            id: 6,
             name: "Entrar",
             url: "/login",
             visibility: "public",
         }
     ];
-
 
     return (
         <App links={links} auth={Auth.isAuthenticated}>
@@ -139,10 +143,10 @@ const AppRoutes = () => {
                 <PrivateRoute exact path="/movies/:id" component={MovieContent} />
                 <PrivateRoute exact path="/user" component={User} />
                 <AuthRoute exact path="/login" component={Login} auth={Auth}/>
-                <Route exact path="/register" component={Register} />
-                <Route exact path="/logout" component={Logout} />
-                <Route exact path="/" component={Dashboard} />
-                <Route component={P404} />
+                <AuthRoute exact path="/register" component={Register} auth={Auth.isAuthenticated}/>
+                <AuthRoute exact path="/logout" component={Logout} auth={Auth.isAuthenticated}/>
+                <AuthRoute exact path="/" component={Dashboard} auth={Auth.isAuthenticated}/>
+                <AuthRoute component={P404} />
             </Switch>
         </App>
     );
