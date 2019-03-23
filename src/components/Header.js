@@ -16,13 +16,19 @@ class Header extends Component {
     };
 
     render() {
-        const {links} = this.props;
+        const {links, auth} = this.props;
 
         return (
             <header className="Header">
                 <div className="Header-logo"><Link to="/">Logo</Link></div>
                 <div>
-                    {links.map(link => {return <Link to={link.url} key={link.id}>{link.name}</Link>})}
+                    {links.filter(link => {
+                        if(auth) {
+                            return link.visibility === "private" || link.visibility === "both";
+                        }else {
+                            return link.visibility === "public" || link.visibility === "both";
+                        }
+                    }).map(link => {return <Link to={link.url} key={link.id}>{link.name}</Link>})}
                 </div>
             </header>
         );

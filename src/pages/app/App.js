@@ -14,11 +14,12 @@ class App extends Component {
     render() {
         const {children} = this.props;
         const {links} = this.props;
+        const {auth} = this.props;
 
         return (
             <div className="App">
                 <div className="App-wrapper">
-                    <Header links={links}/>
+                    <Header links={links} auth={auth}/>
                     <Content body={children}/>
                 </div>
             </div>

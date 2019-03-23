@@ -36,7 +36,7 @@ class Favorites extends Component {
     }
 
     render() {
-        const movies = this.state.movies;
+        let {movies} = this.state;
 
         return (
             <div>

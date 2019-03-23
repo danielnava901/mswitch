@@ -9,6 +9,7 @@ import Favorites from './pages/favorites/index';
 import Lists from './pages/lists/index';
 import Movies from './pages/movies/index';
 import Movie from './pages/movie/index';
+import MovieContent from './pages/movieContent/movieContent';
 import Dashboard from './pages/dashboard/index';
 import P404 from './pages/p404/index';
 import User from './pages/user/index';
@@ -35,7 +36,6 @@ const Auth = {
 const PrivateRoute = ({component: Component, ...rest}) => {
 
     function checkLogin(){
-
         let tokenService = new TokenService();
         let token = tokenService.getToken();
 
@@ -85,7 +85,7 @@ const AuthRoute = ({component: Component, ...rest}) => {
 const Logout = () => {
     let tokenService = new TokenService();
     tokenService.deleteToken();
-
+    Auth.signout();
     return <Redirect to="/login"/>
 };
 
@@ -94,33 +94,49 @@ const AppRoutes = () => {
         {
             id: 1,
             name: "Inicio",
-            url: "/movies"
+            url: "/",
+            visibility: "public",
         },
         {
             id: 2,
             name: "Favoritos",
-            url: "/favorites"
+            url: "/favorites",
+            visibility: "private",
         },
         {
             id: 3,
             name: "Perfil",
-            url: "/user"
+            url: "/user",
+            visibility: "private",
+        },
+        {
+            id: 5,
+            name: "Peliculas",
+            url: "/movies",
+            visibility: "private",
         },
         {
             id: 4,
             name: "Salir",
-            url: "/logout"
+            url: "/logout",
+            visibility: "private",
+        },
+        {
+            id: 5,
+            name: "Entrar",
+            url: "/login",
+            visibility: "public",
         }
     ];
 
 
     return (
-        <App links={links}>
+        <App links={links} auth={Auth.isAuthenticated}>
             <Switch>
                 <PrivateRoute exact path="/favorites" component={Favorites} />
                 <PrivateRoute exact path="/lists" component={Lists} />
                 <PrivateRoute exact path="/movies" component={Movies}/>
-                <PrivateRoute exact path="/movies/:id" component={Movie} />
+                <PrivateRoute exact path="/movies/:id" component={MovieContent} />
                 <PrivateRoute exact path="/user" component={User} />
                 <AuthRoute exact path="/login" component={Login} auth={Auth}/>
                 <Route exact path="/register" component={Register} />

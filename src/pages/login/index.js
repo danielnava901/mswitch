@@ -72,7 +72,7 @@ class Login extends Component {
 
 
     render() {
-        return this.state.isAuthenticated ? <Redirect to="/movies"/> :(
+        return this.state.isAuthenticated ? <Redirect to="/"/> :(
             <div>
                 <div className="Login">
                     <div className="Login-form">

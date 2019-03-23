@@ -9,24 +9,20 @@ import './movie.css'
 const IMG_URL = "https://image.tmdb.org/t/p/w342/";
 const tokenService = new TokenService();
 
-
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 
 function send(mdbId, data, cb) {
     let formData = new FormData();
 
-    for(var key in data) {
+    for(let key in data) {
         formData.append(key, data[key]);
     }
 
-
-    axios.post(`${apiRoutes.base}${apiRoutes.routes.getMovie}${mdbId}`, formData, {
+    return axios.post(`${apiRoutes.base}${apiRoutes.routes.getMovie}${mdbId}`, formData, {
         headers: {
             Authorization: `Bearer ${tokenService.getToken()}`
         }
-    }).then(response => {
-        cb()
     });
 }
 
@@ -75,8 +71,8 @@ class Movie extends Component {
 
     constructor(props) {
         super(props);
-        const mdb_id = this.props.match.params.id;
-
+        const mdb_id = this.props.mdbid;
+        console.log("MD", mdb_id);
         this.state = {
             info: {
                 data: {
@@ -112,9 +108,9 @@ class Movie extends Component {
             score: this.state.score,
             mdb: JSON.stringify(this.state.info.data),
             isFavorite: this.state.isFavorite
-        }, function() {
-            this.onUpdateScore()
-        }.bind(this));
+        }).then(() => {
+            this.onUpdateScore();
+        });
     }
 
     onUpdateScore() {
@@ -147,13 +143,13 @@ class Movie extends Component {
     componentWillMount() {
 
         searchById(this.state.mdb_id)
-            .then(function(data) {
+            .then((data) => {
                 this.setState({
                     info: data
                 });
 
                 console.log("onSearch", this.state.info);
-                this.getMovieForUser().then(function(response) {
+                this.getMovieForUser().then((response) => {
                     console.log("res", response);
                     if("data" in response) {
                         this.setState({
@@ -167,8 +163,8 @@ class Movie extends Component {
                             });
                         }
                     }
-                }.bind(this));
-            }.bind(this));
+                });
+            });
     }
 
     render() {
