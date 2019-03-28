@@ -8,7 +8,9 @@ const routes = {
         getMovies: "/api/"+version+"/movie",
         getMovie: "/api/"+version+"/movie/",
         getFavorites: "/api/"+version+"/favorites",
-        getBestMovies: "/api/"+version+"/best-movies"
+        getBestMovies: "/api/"+version+"/best-movies",
+        addComment: "/api/" + version + "/comment",
+        getComment: "/api/" + version + "/comment/"
     }
 }
 ;

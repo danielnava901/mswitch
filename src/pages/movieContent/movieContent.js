@@ -7,14 +7,15 @@ class MovieContent extends Component {
         super(props);
         const mdbid = this.props.match.params.id;
         this.state = {
-            mdbid
+            mdbid,
+            comments: []
         }
     }
 
     render() {
         return <div>
-            <Movie mdbid={this.state.mdbid}/>
-            <CommentContent mdbid={this.state.mdbid} type="MOVIE_COMMENT"/>
+            <Movie mdbid={this.state.mdbid} />
+            <CommentContent mdbid={this.state.mdbid}  type="MOVIE_COMMENT"/>
         </div>;
     }
 }

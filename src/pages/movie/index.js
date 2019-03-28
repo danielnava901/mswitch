@@ -72,7 +72,6 @@ class Movie extends Component {
     constructor(props) {
         super(props);
         const mdb_id = this.props.mdbid;
-        console.log("MD", mdb_id);
         this.state = {
             info: {
                 data: {
@@ -94,7 +93,6 @@ class Movie extends Component {
     }
 
     getMovieForUser() {
-        console.log("getMovieForUser");
         return axios.get(`${apiRoutes.base}${apiRoutes.routes.getMovie}${this.state.mdb_id}`, {
             headers: {
                 Authorization: `Bearer ${tokenService.getToken()}`
@@ -103,7 +101,6 @@ class Movie extends Component {
     }
 
     updateMovie() {
-        console.log("onUpdate", this.state.info);
         send(this.state.mdb_id, {
             score: this.state.score,
             mdb: JSON.stringify(this.state.info.data),
@@ -115,7 +112,7 @@ class Movie extends Component {
 
     onUpdateScore() {
         this.getMovieForUser().then(function(response) {
-            console.log("onUpdate", response);
+
             if ("data" in response) {
                 this.setState({
                     scores: response.data.scores,
@@ -132,12 +129,12 @@ class Movie extends Component {
     }
 
     onFavClick() {
-        console.log("isFav", this.state.isFavorite);
+
         this.setState({
             isFavorite: this.state.isFavorite ? 0 : 1
-        }, function() {
+        }, () => {
             this.updateMovie();
-        }.bind(this));
+        });
     }
 
     componentWillMount() {
@@ -148,9 +145,8 @@ class Movie extends Component {
                     info: data
                 });
 
-                console.log("onSearch", this.state.info);
                 this.getMovieForUser().then((response) => {
-                    console.log("res", response);
+
                     if("data" in response) {
                         this.setState({
                             scores: response.data.scores,
@@ -160,6 +156,7 @@ class Movie extends Component {
                             this.setState({
                                 score: response.data.data.score,
                                 isFavorite: response.data.data.is_favorite
+
                             });
                         }
                     }
@@ -169,7 +166,7 @@ class Movie extends Component {
 
     render() {
         let posterPath = this.state.info.data.poster_path;
-        console.log("isFav...>", this.state.isFavorite);
+
         let isFavorite = this.state.isFavorite;
         return(
             <div className="Movie">
